@@ -9,20 +9,18 @@ jobs:
   release:
     permissions:
       contents: write
-      packages: write
     
     runs-on: ubuntu-latest
-    steps:
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Bump version and push tag
         id: bump
         uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
           WITH_V: false
-
-          
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: GH Release
         uses: softprops/action-gh-release@v2.0.8
